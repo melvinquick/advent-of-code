@@ -19,6 +19,7 @@ def get_strategy_inputs_func():
     strategy_input_file = open(os.path.join(sys.path[0], "input.txt"), "r")
     for strategy in strategy_input_file:
         strategy_inputs.append(strategy.replace("\n",""))
+    strategy_input_file.close()
     return strategy_inputs
 
 # This function takes the previously read in strategy file and calculates your total score

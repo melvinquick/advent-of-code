@@ -50,7 +50,6 @@ def get_enveloped_count_func(passed_split_pairs):
 
     # Local Main Code
     for pair in passed_split_pairs:
-        print(pair)
         if (int(pair[index_0][index_0]) <= int(pair[index_1][index_0])) & (int(pair[index_0][index_1]) >= int(pair[index_1][index_1])):
             enveloped_pairs_counter += 1
         elif (int(pair[index_1][index_0]) <= int(pair[index_0][index_0])) & (int(pair[index_1][index_1]) >= int(pair[index_0][index_1])):

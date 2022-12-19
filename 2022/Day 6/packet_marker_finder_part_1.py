@@ -10,8 +10,6 @@ import sys
 # =========
 
 # Function to get the datastream info of the elves' signal
-
-
 def get_datastream_func():
     # Local Variables
     datastream = []
@@ -24,8 +22,6 @@ def get_datastream_func():
     return datastream
 
 # Function to split the datastream into individual characters
-
-
 def split_datastream_func(datastream):
     # Local Variables
     new_datastream = []
@@ -37,8 +33,6 @@ def split_datastream_func(datastream):
     return new_datastream
 
 # Function to find the number of characters it takes to get to the end of the first four character buffer
-
-
 def find_buffer_characters_func(datastream):
     # Local Variables
     chars = []

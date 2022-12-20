@@ -27,8 +27,6 @@ def print_nicely_func(input):
     for line in input:
         print(line)
 
-# Function to 
-
 # Function to go through the cycles
 def iterate_cycles_func(instructions, end_cycle):
     # Local Variable

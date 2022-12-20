@@ -28,7 +28,7 @@ def print_nicely_func(input):
     for line in input:
         print(line)
 
-# Function to check if tree is visible from top
+# Function to check if tree is visible from any direction
 def visible(trees):
     # Local Variable
     counter = 1

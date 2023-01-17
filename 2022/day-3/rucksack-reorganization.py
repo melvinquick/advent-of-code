@@ -177,17 +177,13 @@ def get_item_that_appears_in_each_group_rucksack_func(passed_rucksacks):
 # --- Main --- #
 
 def main():
-    rucksacks = []
-    compartment_matches = []
-    group_item_matches = []
-    priority_sum = 0
-
     rucksacks = get_rucksacks_func()
     compartment_matches = get_item_that_appears_in_each_compartment_func(rucksacks)
+    group_item_matches = get_item_that_appears_in_each_group_rucksack_func(rucksacks)
     priority_sum = get_item_priority_func(compartment_matches)
+
     print("Part 1: ", priority_sum)
 
-    group_item_matches = get_item_that_appears_in_each_group_rucksack_func(rucksacks)
     priority_sum = get_item_priority_func(group_item_matches)
     print("Part 2: ", priority_sum)
 

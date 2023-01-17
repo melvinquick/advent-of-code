@@ -1,33 +1,25 @@
-# =========
-# LIBRARIES
-# =========
+# --- Libraries --- #
 
 import os
 import sys
 
-# =========
-# FUNCTIONS
-# =========
+# --- Functions --- #
 
-# Function to get the crate info that the elves currently have
 def get_crates_and_moves_func():
-    # Local Variables
+    # Function to get the crate info that the elves currently have
     crates_and_moves = []
-
-    # Local Main Code
     crates_file = open(os.path.join(sys.path[0], "input.txt"), "r")
+
     for crate in crates_file:
         crates_and_moves.append(crate.replace("\n",""))
     crates_file.close()
     return crates_and_moves
 
-# Function to get just the moves from the input
 def get_moves_func(passed_crates_and_moves):
-    # Local Variables
+    # Function to get just the moves from the input
     moves_1 = []
     moves_2 = []
 
-    # Local Main Code
     for line in passed_crates_and_moves:
         if "move" in line:
             moves_1.append(line)
@@ -35,12 +27,10 @@ def get_moves_func(passed_crates_and_moves):
         moves_2.append(line.strip("move ").replace("from ","").replace("to ","").split())
     return moves_2
 
-# Function to get just the crates from the input
 def get_crates_func(passed_crates_and_moves):
-    # Local Variables
+    # Function to get just the crates from the input
     crates = []
 
-    # Local Main Code
     for line in passed_crates_and_moves:
         if "move" in line:
             continue
@@ -49,13 +39,11 @@ def get_crates_func(passed_crates_and_moves):
     crates.pop()
     return crates
 
-# Function to remove extra characters from crates
 def remove_extra_crate_chars_func(passed_crates):
-    # Local Variables
+    # Function to remove extra characters from crates
     lines = []
     chars = []
 
-    # Local Main Code
     for line in passed_crates:
         chars = []
         for char in line:
@@ -66,9 +54,8 @@ def remove_extra_crate_chars_func(passed_crates):
         lines.append(chars)
     return lines
 
-# Function to get crates into correct columns
 def correct_crate_columns(passed_crates):
-    # Local Variables
+    # Function to get crates into correct columns
     crates_1 = []
     crates_2 = []
     crates_3 = []
@@ -76,7 +63,6 @@ def correct_crate_columns(passed_crates):
     crates_5 = []
     chars = []
 
-    # Local Main Code
     for char in range(len(passed_crates[0])):
         crates_2 = []
         for line in passed_crates:
@@ -97,20 +83,17 @@ def correct_crate_columns(passed_crates):
         crates_5.append(chars)
     return crates_5
 
-# Function to nicely print crate list
 def print_nicely_func(passed_crates_or_moves):
-    # Local Variables / # Local Main Code
+    # Function to nicely print crate list
     for line in passed_crates_or_moves:
         print(line)
 
-# Function to do moves from input
 def do_moves(passed_crates, passed_moves):
-    # Local Variables
+    # Function to do moves from input
     top_crates = []
     counter_1 = 0
     counter_2 = 0
 
-    # Local Main Code
     for move in passed_moves:
         counter_1 = int(move[0])-1
         while counter_1 >= 0:
@@ -122,21 +105,9 @@ def do_moves(passed_crates, passed_moves):
     return top_crates
 
 
-# ================
-# GLOBAL VARIABLES
-# ================
+# --- Main --- #
 
-crates_and_moves = []
-crates = []
-moves = []
-top_crates = ""
-
-
-# ====
-# MAIN
-# ====
-
-if __name__ == "__main__":
+def main():
     crates_and_moves = get_crates_and_moves_func()
     moves = get_moves_func(crates_and_moves)
     crates = get_crates_func(crates_and_moves)
@@ -144,3 +115,7 @@ if __name__ == "__main__":
     crates = correct_crate_columns(crates)
     top_crates = do_moves(crates, moves)
     print_nicely_func(top_crates)
+
+
+if __name__ == "__main__":
+    main()

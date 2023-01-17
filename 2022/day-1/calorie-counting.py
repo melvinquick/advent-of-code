@@ -25,14 +25,12 @@ def inputs_func():
 # --- Main --- #
 
 def main():
-    cal_list = []
-
     cal_list = inputs_func()
+
     cal_list.sort(reverse=True)
 
     print("Part 1: ", max(cal_list))
-
-    print("\nPart 2:", cal_list[0] + cal_list[1] + cal_list[2])
+    print("Part 2:", cal_list[0] + cal_list[1] + cal_list[2])
 
 
 if __name__ == "__main__":

@@ -153,19 +153,43 @@ def get_item_that_appears_in_each_compartment_func(passed_rucksacks):
                 break
     return matching_items
 
+def get_item_that_appears_in_each_group_rucksack_func(passed_rucksacks):
+    # Function to get which item appears in both compartments of each rucksack
+    counter = 0
+    rucksack_1 = []
+    rucksack_2 = []
+    rucksack_3 = []
+    matching_items = []
+
+    while counter <= len(passed_rucksacks)-1:
+        rucksack_1 = passed_rucksacks[counter]
+        rucksack_2 = passed_rucksacks[counter+1]
+        rucksack_3 = passed_rucksacks[counter+2]
+        for item in rucksack_1:
+            if item in rucksack_2:
+                if item in rucksack_3:
+                    matching_items.append(item)
+                    break
+        counter += 3
+    return matching_items
+
 
 # --- Main --- #
 
 def main():
     rucksacks = []
     compartment_matches = []
+    group_item_matches = []
     priority_sum = 0
 
     rucksacks = get_rucksacks_func()
-    compartment_matches = get_item_that_appears_in_each_compartment_func(
-        rucksacks)
+    compartment_matches = get_item_that_appears_in_each_compartment_func(rucksacks)
     priority_sum = get_item_priority_func(compartment_matches)
-    print(priority_sum)
+    print("Part 1: ", priority_sum)
+
+    group_item_matches = get_item_that_appears_in_each_group_rucksack_func(rucksacks)
+    priority_sum = get_item_priority_func(group_item_matches)
+    print("Part 2: ", priority_sum)
 
 
 if __name__ == "__main__":

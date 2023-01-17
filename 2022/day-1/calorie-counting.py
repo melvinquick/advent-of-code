@@ -26,7 +26,6 @@ def inputs_func():
 
 def main():
     cal_list = []
-    cal_list_sums = []
 
     cal_list = inputs_func()
     cal_list.sort(reverse=True)

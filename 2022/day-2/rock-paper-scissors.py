@@ -79,12 +79,9 @@ def part_2_score_func(local_strategy_array):
 # --- Main --- #
 
 def main():
-    strategy_array = []
-    total_score = 0
-
     strategy_array = get_strategy_inputs_func()
-
     total_score = part_1_score_func(strategy_array)
+
     print("Part 1: ", total_score)
 
     total_score = part_2_score_func(strategy_array)

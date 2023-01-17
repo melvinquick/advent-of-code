@@ -1,48 +1,51 @@
-# =========
-# LIBRARIES
-# =========
+# --- Libraries --- #
 
 import os
 import sys
 
-# =========
-# FUNCTIONS
-# =========
 
-# Function to get the tree info from the elves' quadcopter
+# --- Functions --- #
+
 def get_trees_func():
-    # Local Variables
+    # Function to get the tree info from the elves' quadcopter
     trees = []
     individual_trees = []
 
-    # Local Main Code
     trees_file = open(os.path.join(sys.path[0], "input.txt"), "r")
     for tree in trees_file:
         trees.append(tree.replace("\n", ""))
     trees_file.close()
     return trees
 
-# Function to get nice printing of multi-dimensional list
-def print_nicely_func(input):
-    # Local Variables / Local Main Code
-    for line in input:
-        print(line)
 
-# Function to check if tree is visible from any direction
 def visible(trees):
-    # Local Variable
+    # Function to check if tree is visible from any direction
     counter = 1
 
-    # Local Main Code
     while counter <= len(trees)-1:
         if trees[0] <= trees[counter]:
             return False
         counter += 1
     return True
 
-# Function to get the visibility of each tree
+
+def scenic_score_func(trees):
+    # Function to get the scenic score of a tree
+    counter = 1
+    scenic_score = 0
+
+    while counter <= len(trees)-1:
+        if trees[0] > trees[counter]:
+            scenic_score += 1
+        if trees[0] <= trees[counter]:
+            scenic_score += 1
+            break
+        counter += 1
+    return scenic_score
+
+
 def get_tree_visibility_func(trees):
-    # Local Variable
+    # Function to get the visibility of each tree
     visible_count_edge = 0
     visible_count_interior = 0
     trees_across = len(trees[0])-1
@@ -56,7 +59,6 @@ def get_tree_visibility_func(trees):
     counter_2 = 0
     surrounding_counter = 0
 
-    # Local Main Code
     while counter_1 <= trees_down:
         counter_2 = 0
         while counter_2 <= trees_across:
@@ -103,24 +105,83 @@ def get_tree_visibility_func(trees):
 
             counter_2 += 1
         counter_1 += 1
-    # print(visible_count_edge)
-    # print(visible_count_interior)
     return visible_count_edge+visible_count_interior
 
 
-# ================
-# GLOBAL VARIABLES
-# ================
+def get_best_scenic_score_func(trees):
+    # Function to get the best scenic score of all trees
+    trees_across = len(trees[0])-1
+    trees_down = len(trees)-1
+    tree = []
+    top_check = 0
+    bottom_check = 0
+    left_check = 0
+    right_check = 0
+    counter_1 = 0
+    counter_2 = 0
+    surrounding_counter = 0
+    scenic_score = []
 
-trees = []
-visible_count = 0
+    while counter_1 <= trees_down:
+        counter_2 = 0
+        while counter_2 <= trees_across:
+            # Get Edge Trees
+            if counter_1 == 0 or counter_1 == trees_down or counter_2 == 0 or counter_2 == trees_across:
+                counter_2 += 1
+                continue
+            else:
+                # Get Top Surrounding trees
+                surrounding_counter = 0
+                tree = []
+                while surrounding_counter <= counter_1:
+                    tree.append(trees[surrounding_counter][counter_2])
+                    surrounding_counter += 1
+                tree.reverse()
+                top_check = scenic_score_func(tree)
+
+                # Get Bottom Surrounding Trees
+                surrounding_counter = counter_1
+                tree = []
+                while surrounding_counter <= trees_down:
+                    tree.append(trees[surrounding_counter][counter_2])
+                    surrounding_counter += 1
+                bottom_check = scenic_score_func(tree)
+
+                # Get Left Surrounding Trees
+                surrounding_counter = 0
+                tree = []
+                while surrounding_counter <= counter_2:
+                    tree.append(trees[counter_1][surrounding_counter])
+                    surrounding_counter += 1
+                tree.reverse()
+                left_check = scenic_score_func(tree)
+
+                # Get Right Surrounding Trees
+                surrounding_counter = counter_2
+                tree = []
+                while surrounding_counter <= trees_across:
+                    tree.append(trees[counter_1][surrounding_counter])
+                    surrounding_counter += 1
+                right_check = scenic_score_func(tree)
+
+                scenic_score.append(
+                    top_check * bottom_check * left_check * right_check)
+
+            counter_2 += 1
+        counter_1 += 1
+    return max(scenic_score)
 
 
-# ====
-# MAIN
-# ====
+# --- Main --- #
 
-if __name__ == "__main__":
+def main():
     trees = get_trees_func()
     visible_count = get_tree_visibility_func(trees)
-    print(visible_count)
+    best_scenic_score = get_best_scenic_score_func(trees)
+
+    print("Part 1: ", visible_count)
+    print("Part 2: ", best_scenic_score)
+
+
+if __name__ == "__main__":
+    main()

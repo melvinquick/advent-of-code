@@ -1,41 +1,35 @@
-# =========
-# LIBRARIES
-# =========
+# --- Libraries --- #
 
 import os
 import sys
 
-# =========
-# FUNCTIONS
-# =========
 
-# Function to get the tree info from the elves' quadcopter
+# --- Functions --- #
+
 def get_instructions_func():
-    # Local Variables
+    # Function to get the tree info from the elves' quadcopter
     instructions = []
-
-    # Local Main Code
     instructions_file = open(os.path.join(sys.path[0], "input.txt"), "r")
+
     for instruction in instructions_file:
         instructions.append(instruction.replace("\n", "").replace("addx ", ""))
     instructions_file.close()
     return instructions
 
-# Function to print list info nicely
+
 def print_nicely_func(input):
-    # Local Variables / Local Main Code
+    # Function to print list info nicely
     for line in input:
         print(line)
 
-# Function to go through the cycles
+
 def iterate_cycles_func(instructions, end_cycle):
-    # Local Variable
+    # Function to go through the cycles
     x_register = 1
     cycle_counter = 0
     signal_strength = 0
     sum_of_signal_strengths = 0
 
-    # Local Main Code
     for instruction in instructions:
         signal_strength = 0
         if cycle_counter <= end_cycle:
@@ -53,24 +47,60 @@ def iterate_cycles_func(instructions, end_cycle):
                 x_register += int(instruction)
 
             sum_of_signal_strengths += signal_strength
-    
     return sum_of_signal_strengths
 
 
-# ================
-# GLOBAL VARIABLES
-# ================
+def crt_sprites_func(instructions):
+    # Function to go through the cycles
+    x_register = 1
+    cycle_counter = 0
+    crt = ""
+    crt_output = []
 
-instructions = []
-end_cycle = 220
-sum_of_signal_strengths = 0
+    for instruction in instructions:
+        if instruction == "noop":
+            if x_register-1 <= cycle_counter <= x_register+1:
+                crt += "#"
+            else:
+                crt += " "
+            cycle_counter += 1
+            if cycle_counter % 40 == 0:
+                cycle_counter = 0
+                crt += "split"
+        else:
+            if x_register-1 <= cycle_counter <= x_register+1:
+                crt += "#"
+            else:
+                crt += " "
+            cycle_counter += 1
+            if cycle_counter % 40 == 0:
+                cycle_counter = 0
+                crt += "split"
+            if x_register-1 <= cycle_counter <= x_register+1:
+                crt += "#"
+            else:
+                crt += " "
+            cycle_counter += 1
+            if cycle_counter % 40 == 0:
+                cycle_counter = 0
+                crt += "split"
+            x_register += int(instruction)
+    crt_output = crt.split("split")
+    return crt_output
 
 
-# ====
-# MAIN
-# ====
+# --- Main --- #
 
-if __name__ == "__main__":
+def main():
+    end_cycle = 220
     instructions = get_instructions_func()
     sum_of_signal_strengths = iterate_cycles_func(instructions, end_cycle)
-    print(sum_of_signal_strengths)
+    crt = crt_sprites_func(instructions)
+
+    print("Part 1: ", sum_of_signal_strengths)
+    print("Part 2:")
+    print_nicely_func(crt)
+
+
+if __name__ == "__main__":
+    main()

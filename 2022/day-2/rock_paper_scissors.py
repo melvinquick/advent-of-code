@@ -1,33 +1,27 @@
-# =========
-# LIBRARIES
-# =========
+# --- Libraries --- #
 
 import os
 import sys
 
 
-# =========
-# FUNCTIONS
-# =========
+# --- Functions --- #
 
-# This function reads in the strategy file and removes the "\n" from each line
 def get_strategy_inputs_func():
-    # Local Variables
+    # This function reads in the strategy file and removes the "\n" from each line
     strategy_inputs = []
 
-    # Local Main Code
     strategy_input_file = open(os.path.join(sys.path[0], "input.txt"), "r")
     for strategy in strategy_input_file:
-        strategy_inputs.append(strategy.replace("\n",""))
+        strategy_inputs.append(strategy.replace("\n", ""))
     strategy_input_file.close()
     return strategy_inputs
 
-# This function takes the previously read in strategy file and calculates your total score
+
 def get_total_score_func(local_strategy_array):
-    # Local Variables
+    # This function takes the previously read in strategy file and calculates your total score
     score_sum = 0
     strategies = local_strategy_array
-    # Local Main Code
+
     for strategy in strategies:
         match strategy:
             case "A X":
@@ -54,19 +48,15 @@ def get_total_score_func(local_strategy_array):
     return score_sum
 
 
-# ================
-# GLOBAL VARIABLES
-# ================
+# --- Main --- #
 
-strategy_array = []
-total_score = 0
+def main():
+    strategy_array = []
+    total_score = 0
 
-# ====
-# MAIN
-# ====
-
-
-if __name__ == "__main__":
     strategy_array = get_strategy_inputs_func()
     total_score = get_total_score_func(strategy_array)
     print(total_score)
+
+if __name__ == "__main__":
+    main()

@@ -1,34 +1,27 @@
-# =========
-# LIBRARIES
-# =========
+# --- Libraries --- #
 
 import os
 import sys
 
 
-# =========
-# FUNCTIONS
-# =========
+# --- Functions --- #
 
-# Function to get the rucksack storage info that the elf currently has
 def get_rucksacks_func():
-    # Local Variables
+    # Function to get the rucksack storage info that the elf currently has
     rucksacks = []
 
-    # Local Main Code
     rucksack_file = open(os.path.join(sys.path[0], "input.txt"), "r")
     for rucksack in rucksack_file:
-        rucksacks.append(rucksack.replace("\n",""))
+        rucksacks.append(rucksack.replace("\n", ""))
     rucksack_file.close()
     return rucksacks
 
-# Function to get the priority of an item
+
 def get_item_priority_func(passed_matches):
-    # Local Variables
+    # Function to get the priority of an item
     priority_of_item = 0
     priority_item_sum = 0
 
-    # Local Main Code
     for match in passed_matches:
         match match:
             case "a":
@@ -136,12 +129,12 @@ def get_item_priority_func(passed_matches):
             case "Z":
                 priority_of_item = 52
         priority_item_sum += priority_of_item
-    
+
     return priority_item_sum
 
-# Function to get which item appears in both compartments of each rucksack
+
 def get_item_that_appears_in_each_compartment_func(passed_rucksacks):
-    # Local Variables
+    # Function to get which item appears in both compartments of each rucksack
     item_count = 0
     counter = 0
     halfway = 0
@@ -149,7 +142,6 @@ def get_item_that_appears_in_each_compartment_func(passed_rucksacks):
     compartment_2 = []
     matching_items = []
 
-    # Local Main Code 
     for rucksack in passed_rucksacks:
         item_count = len(rucksack)
         halfway = int((item_count/2))
@@ -160,23 +152,21 @@ def get_item_that_appears_in_each_compartment_func(passed_rucksacks):
                 matching_items.append(item)
                 break
     return matching_items
-        
-
-# ================
-# GLOBAL VARIABLES
-# ================
-
-rucksacks = []
-compartment_matches = []
-priority_sum = 0
 
 
-# ====
-# MAIN
-# ====
+# --- Main --- #
 
-if __name__ == "__main__":
+def main():
+    rucksacks = []
+    compartment_matches = []
+    priority_sum = 0
+
     rucksacks = get_rucksacks_func()
-    compartment_matches = get_item_that_appears_in_each_compartment_func(rucksacks)
+    compartment_matches = get_item_that_appears_in_each_compartment_func(
+        rucksacks)
     priority_sum = get_item_priority_func(compartment_matches)
     print(priority_sum)
+
+
+if __name__ == "__main__":
+    main()

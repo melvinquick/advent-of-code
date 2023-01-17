@@ -1,48 +1,40 @@
-# =========
-# LIBRARIES
-# =========
+# --- Libraries --- #
 
 import os
 import sys
 
 
-# =========
-# FUNCTIONS
-# =========
+# --- Functions --- #
 
-# Function to read input.txt file and convert the breakdowns per elf into totals
-def get_calorie_inputs_func():
-    # Local Variables
-    calorie_inputs = []
-    calorie_sums_per_elf = 0
+def inputs_func():
+    # Function to read input.txt file and convert the breakdowns per elf into totals
+    inputs = []
+    sum = 0
 
-    # Local Main Code
-    calorie_input_file = open(os.path.join(sys.path[0], "input.txt"), "r")
-    for calories in calorie_input_file:
+    input_file = open(os.path.join(sys.path[0], "input.txt"), "r")
+    for calories in input_file:
         if calories == "\n":
-            calorie_inputs.append(calorie_sums_per_elf)
-            calorie_sums_per_elf = 0
+            inputs.append(sum)
+            sum = 0
         else:
-            calorie_sums_per_elf += int(calories)
-    calorie_input_file.close()
-    return calorie_inputs
+            sum += int(calories)
+    input_file.close()
+    return inputs
 
 
-# ================
-# GLOBAL VARIABLES
-# ================
+# --- Main --- #
 
-calorie_array = []
-calorie_array_sums = []
+def main():
+    cal_list = []
+    cal_list_sums = []
 
-# ====
-# MAIN
-# ====
+    cal_list = inputs_func()
+    cal_list.sort(reverse=True)
+
+    print("Part 1: ", max(cal_list))
+
+    print("\nPart 2:", cal_list[0] + cal_list[1] + cal_list[2])
+
 
 if __name__ == "__main__":
-    calorie_array = get_calorie_inputs_func()
-    print("Part 1:")
-    print(max(calorie_array))
-
-    print("\nPart 2:")
-    print(calorie_array[0] + calorie_array[1] + calorie_array[2])
+    main()

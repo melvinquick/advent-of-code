@@ -35,11 +35,14 @@ def get_calorie_inputs_func():
 calorie_array = []
 calorie_array_sums = []
 
-
 # ====
 # MAIN
 # ====
 
 if __name__ == "__main__":
     calorie_array = get_calorie_inputs_func()
+    print("Part 1:")
     print(max(calorie_array))
+
+    print("\nPart 2:")
+    print(calorie_array[0] + calorie_array[1] + calorie_array[2])

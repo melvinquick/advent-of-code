@@ -1,4 +1,4 @@
-## How to contribute to the Windows Setup Script
+## How to contribute to the Advent of Code Repo
 
 #### Did you find a bug?
 
